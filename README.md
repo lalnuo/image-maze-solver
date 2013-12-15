@@ -1,4 +1,3 @@
-image-maze-solver
-=================
-
 Labyrinttiratkoja
+=================
+Tiran harjoitustyö
