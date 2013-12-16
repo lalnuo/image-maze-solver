@@ -21,13 +21,17 @@ import javax.imageio.ImageIO;
 class MazeMaker {
 
     private BufferedImage buffImage;
+    boolean errorThrown;
+
     public MazeMaker(String testpng) {
         try {
             File image = new File(testpng);
             buffImage = ImageIO.read(image);
         } catch (IOException ex) {
-            System.out.println("Incorrect imagefile");
+            errorThrown = true;
+            Logger.getLogger(MazeMaker.class.getName()).log(Level.SEVERE, null, ex);
         }
+
 
     }
 
@@ -57,6 +61,7 @@ class MazeMaker {
         }
         if (!startFound || !endFound) {
             System.out.println("Didn't find start or end point");
+            return null;
         }
         setNeightbours(mazeArray);
         maze.setMaze(mazeArray);
@@ -93,11 +98,11 @@ class MazeMaker {
         try {
             int color = Color.RED.getRGB();
             while (!path.isEmpty()) {
-             
-                    Node node = path.pop();
-                    buffImage.setRGB(node.getY(), node.getX(), color);
 
-           
+                Node node = path.pop();
+                buffImage.setRGB(node.getY(), node.getX(), color);
+
+
             }
             File outputfile = new File("saved.png");
             ImageIO.write(buffImage, "png", outputfile);

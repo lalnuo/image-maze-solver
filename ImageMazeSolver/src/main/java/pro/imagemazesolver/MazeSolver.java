@@ -22,7 +22,9 @@ public class MazeSolver {
         String filename = sc.nextLine();
         mazeMaker = new MazeMaker(filename);
         maze = mazeMaker.imageToMaze();
-        solveWithDijsktra();
+        if (maze != null) {
+            solveWithDijsktra();
+        }
     }
 
     public void solveWithDijsktra() {
