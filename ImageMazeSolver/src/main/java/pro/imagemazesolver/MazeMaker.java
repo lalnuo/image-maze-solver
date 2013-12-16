@@ -21,7 +21,6 @@ import javax.imageio.ImageIO;
 class MazeMaker {
 
     private BufferedImage buffImage;
-
     public MazeMaker(String testpng) {
         try {
             File image = new File(testpng);
@@ -68,7 +67,7 @@ class MazeMaker {
 
     }
 
-    private static void setNeightbours(Node[][] mazeArray) {
+    private void setNeightbours(Node[][] mazeArray) {
         for (int i = 0; i < mazeArray.length; i++) {
             for (int j = 0; j < mazeArray[0].length; j++) {
                 Node node = mazeArray[i][j];

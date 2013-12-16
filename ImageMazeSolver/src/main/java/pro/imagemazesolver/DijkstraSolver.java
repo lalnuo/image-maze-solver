@@ -22,17 +22,19 @@ public class DijkstraSolver {
 
     public Stack<Node> solve() {
         Node start = maze.getStartNode();
+        boolean foundSolution = false;
         PriorityQueue<Node> heap = new PriorityQueue();
         heap.add(start);
         while (!heap.isEmpty()) {
             Node node = heap.poll();
-           
+
             if (node.equals(maze.getEndNode())) {
+                foundSolution = true;
                 break;
             }
             ArrayList<Node> naapurit = node.getNaapurit();
             for (Node node1 : naapurit) {
-                if (!node1.isVisited() && !node.isWall() && node1.getWeight() < node.getWeight()+1) {
+                if (!node1.isVisited() && !node.isWall() && node1.getWeight() < node.getWeight() + 1) {
                     node1.setPath(node);
                     node1.setWeight(1 + node.getWeight());
                     heap.add(node1);
@@ -41,7 +43,11 @@ public class DijkstraSolver {
             }
             node.setVisited(true);
         }
+
         Stack<Node> path = new Stack<Node>();
+        if (!foundSolution) {
+            return path;
+        }
         Node pathNode = maze.getEndNode();
         while (pathNode != null) {
             path.add(pathNode);
