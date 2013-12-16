@@ -13,24 +13,27 @@ import java.util.ArrayList;
  */
 public class Node implements Comparable<Node> {
 
-   
+    private int y;
+    private int x;
     private Color color;
     private int weight;
     private boolean wall;
     private ArrayList<Node> naapurit = new ArrayList<Node>();
     private boolean visited;
-    private Node path;
+    private Node path; 
 
     public Node getPath() {
         return path;
     }
+
 
     public void setVisited(boolean visited) {
         this.visited = visited;
     }
 
     public Node(int y, int x, Color color) {
-       
+        this.x = x;
+        this.y = y;
         this.color = color;
         this.wall = false;
         this.visited = false;
@@ -51,11 +54,25 @@ public class Node implements Comparable<Node> {
     public boolean isVisited() {
         return visited;
     }
-
     public void setWeight(int weight) {
         this.weight = weight;
     }
 
+    public int getY() {
+        return y;
+    }
+
+    public void setY(int y) {
+        this.y = y;
+    }
+
+    public int getX() {
+        return x;
+    }
+
+    public void setX(int x) {
+        this.x = x;
+    }
 
     public Color getColor() {
         return color;

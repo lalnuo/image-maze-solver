@@ -1,5 +1,7 @@
 package pro.imagemazesolver;
 
+import java.awt.Color;
+import static junit.framework.Assert.assertEquals;
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
@@ -7,32 +9,25 @@ import junit.framework.TestSuite;
 /**
  * Unit test for simple App.
  */
-public class AppTest 
-    extends TestCase
-{
-    /**
-     * Create the test case
-     *
-     * @param testName name of the test case
-     */
-    public AppTest( String testName )
-    {
-        super( testName );
-    }
+public class AppTest extends TestCase {
 
-    /**
-     * @return the suite of tests being tested
-     */
-    public static Test suite()
-    {
-        return new TestSuite( AppTest.class );
+    
+    public void testNodeNumberOfNeightboursIsCorrectAfterAdd(){
+        Node node = new Node(0,0,Color.RED);
+        node.addNaapuri(node);
+        node.addNaapuri(node);
+        node.addNaapuri(node);
+        assertEquals("Get naapurit must be 3", node.getNaapurit().size(),3);
+        
     }
-
-    /**
-     * Rigourous Test :-)
-     */
-    public void testApp()
-    {
-        assertTrue( true );
+    
+    public void testNodeNumberOfNeightboursIsZeroAtFirst(){
+        Node node = new Node(0,0,Color.RED);
+        assertEquals("Get naapurit must be 0", node.getNaapurit().size(),0); 
+    }
+    
+    public void testNodeIsNotWallAsDefault(){
+        Node node = new Node(0,0,Color.RED);
+        assertEquals(node.isWall(),true);
     }
 }

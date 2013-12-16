@@ -4,21 +4,32 @@
  */
 package pro.imagemazesolver;
 
+import java.util.Scanner;
+import java.util.Stack;
+
 /**
  *
  * @author lalli
  */
 public class MazeSolver {
+
     private Maze maze;
-    public MazeSolver(){
-        maze = MazeMaker.imageToMaze("test.png");
+    private MazeMaker mazeMaker;
+
+    public MazeSolver() {
+        System.out.println("Anna tiedoston nimi: ");
+        Scanner sc = new Scanner(System.in);
+        String filename = sc.nextLine();
+        mazeMaker = new MazeMaker(filename);
+        maze = mazeMaker.imageToMaze();
         solveWithDijsktra();
     }
-    
-    public void solveWithDijsktra(){
+
+    public void solveWithDijsktra() {
         DijkstraSolver dSolver = new DijkstraSolver(maze);
-        dSolver.solve();
-        
+        Stack<Node> path = dSolver.solve();
+        mazeMaker.drawPath(path);
+
+
     }
-    
 }

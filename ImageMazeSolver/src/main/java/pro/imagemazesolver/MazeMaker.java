@@ -9,6 +9,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Stack;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
@@ -19,41 +20,51 @@ import javax.imageio.ImageIO;
  */
 class MazeMaker {
 
-    static Maze imageToMaze(String testpng) {
+    private BufferedImage buffImage;
+
+    public MazeMaker(String testpng) {
         try {
             File image = new File(testpng);
-            BufferedImage buffImage = ImageIO.read(image);
-            int height = buffImage.getHeight();
-            int width = buffImage.getWidth();
-            Maze maze = new Maze();
-
-            Node[][] mazeArray = new Node[height][width];
-
-
-            for (int i = 0; i < height; i++) {
-                for (int j = 0; j < width; j++) {
-                    Node node = new Node(i, j, new Color(buffImage.getRGB(i, j)));
-                    if (node.getColor().equals(Color.BLACK)) {
-                        node.setWall(true);
-                    } else if (node.getColor().equals(Color.RED)) {
-                        maze.setStartNode(node);
-                    } else if (node.getColor().equals(Color.BLUE)) {
-                        maze.setEndNode(node);
-                    }
-
-                    mazeArray[i][j] = node;
-
-                }
-            }
-            setNeightbours(mazeArray);
-            maze.setMaze(mazeArray);
-
-            return maze;
-
+            buffImage = ImageIO.read(image);
         } catch (IOException ex) {
-            System.out.println("Incorrect file");
-            return null;
+            System.out.println("Incorrect imagefile");
         }
+
+    }
+
+    public Maze imageToMaze() {
+        int height = buffImage.getHeight();
+        int width = buffImage.getWidth();
+        Maze maze = new Maze();
+
+        Node[][] mazeArray = new Node[height][width];
+        boolean startFound = false;
+        boolean endFound = false;
+
+        for (int i = 0; i < height; i++) {
+            for (int j = 0; j < width; j++) {
+                Node node = new Node(i, j, new Color(buffImage.getRGB(i, j)));
+                if (node.getColor().equals(Color.BLACK)) {
+                    node.setWall(true);
+                } else if (node.getColor().equals(Color.RED)) {
+                    maze.setStartNode(node);
+                    startFound = true;
+                } else if (node.getColor().equals(Color.BLUE)) {
+                    maze.setEndNode(node);
+                    endFound = true;
+                }
+                mazeArray[i][j] = node;
+            }
+        }
+        if (!startFound || !endFound) {
+            System.out.println("Didn't find start or end point");
+        }
+        setNeightbours(mazeArray);
+        maze.setMaze(mazeArray);
+
+        return maze;
+
+
 
     }
 
@@ -74,6 +85,25 @@ class MazeMaker {
                     node.addNaapuri(mazeArray[i][j - 1]);
                 }
             }
+        }
+
+
+    }
+
+    public void drawPath(Stack<Node> path) {
+        try {
+            int color = Color.RED.getRGB();
+            while (!path.isEmpty()) {
+             
+                    Node node = path.pop();
+                    buffImage.setRGB(node.getY(), node.getX(), color);
+
+           
+            }
+            File outputfile = new File("saved.png");
+            ImageIO.write(buffImage, "png", outputfile);
+        } catch (IOException ex) {
+            Logger.getLogger(MazeMaker.class.getName()).log(Level.SEVERE, null, ex);
         }
 
 
