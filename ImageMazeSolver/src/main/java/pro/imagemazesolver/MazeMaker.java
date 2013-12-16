@@ -8,7 +8,6 @@ import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Stack;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -22,10 +21,20 @@ class MazeMaker {
 
     private BufferedImage buffImage;
     boolean errorThrown;
+    private String savename;
 
-    public MazeMaker(String testpng) {
+    /**
+     * Metodi on luokan konstruktori. Konstruktorissa luetaan anettu tiedosto ja
+     * muutetaan se buffered imageksi
+     *
+     * @params testpng on kuvatiedoston nimi.
+     * @params savename tiedosto johon tulos tallennetaan
+     *
+     */
+    public MazeMaker(String imagepath, String savename) {
+        this.savename = savename;
         try {
-            File image = new File(testpng);
+            File image = new File(imagepath);
             buffImage = ImageIO.read(image);
         } catch (IOException ex) {
             errorThrown = true;
@@ -35,6 +44,14 @@ class MazeMaker {
 
     }
 
+    /**
+     * Metodi muuntaa aiemmin konstruktorissa annetun tiedoston
+     * kaksiulotteiseksi taulukoksi, ja kutsuu setNeightbours metodia
+     * naapureiden asettamiseksi.
+     *
+     * @return palauttaa mazen joka sisältää 2 ulotteisen taulukon,
+     * aloituspisteen ja maalipisteen.
+     */
     public Maze imageToMaze() {
         int height = buffImage.getHeight();
         int width = buffImage.getWidth();
@@ -46,15 +63,19 @@ class MazeMaker {
 
         for (int i = 0; i < height; i++) {
             for (int j = 0; j < width; j++) {
-                Node node = new Node(i, j, new Color(buffImage.getRGB(i, j)));
-                if (node.getColor().equals(Color.BLACK)) {
-                    node.setWall(true);
-                } else if (node.getColor().equals(Color.RED)) {
+                int color;
+
+                color = buffImage.getRGB(j, i);
+
+                Node node = new Node(i, j, new Color(color));
+                if (node.getColor().equals(Color.RED)) {
                     maze.setStartNode(node);
                     startFound = true;
                 } else if (node.getColor().equals(Color.BLUE)) {
                     maze.setEndNode(node);
                     endFound = true;
+                } else if (node.getColor().getRGB() < -100000) {
+                    node.setWall(true);
                 }
                 mazeArray[i][j] = node;
             }
@@ -72,6 +93,14 @@ class MazeMaker {
 
     }
 
+    /**
+     * Metodi muuntaa aiemmin konstruktorissa annetun tiedoston
+     * kaksiulotteiseksi taulukoksi, ja kutsuu setNeightbours metodia
+     * naapureiden asettamiseksi.
+     *
+     * @return palauttaa mazen joka sisältää 2 ulotteisen taulukon,
+     * aloituspisteen ja maalipisteen.
+     */
     private void setNeightbours(Node[][] mazeArray) {
         for (int i = 0; i < mazeArray.length; i++) {
             for (int j = 0; j < mazeArray[0].length; j++) {
@@ -94,17 +123,24 @@ class MazeMaker {
 
     }
 
+    /**
+     * Metodi käy stackin läpi, hakee nodeista X ja Y koordinaatit ja värjää
+     * BufferedImagessa olevan pisteen punaiseksi merkkaamaan reittiä. Lopulta
+     * ImageIO. kirjoittaa kuvan halutun nimiseen tiedostoon.
+     * @params path reitti maalista alkuun.
+     * 
+     */
     public void drawPath(Stack<Node> path) {
         try {
             int color = Color.RED.getRGB();
             while (!path.isEmpty()) {
 
                 Node node = path.pop();
-                buffImage.setRGB(node.getY(), node.getX(), color);
+                buffImage.setRGB(node.getX(), node.getY(), color);
 
 
             }
-            File outputfile = new File("saved.png");
+            File outputfile = new File(savename);
             ImageIO.write(buffImage, "png", outputfile);
         } catch (IOException ex) {
             Logger.getLogger(MazeMaker.class.getName()).log(Level.SEVERE, null, ex);

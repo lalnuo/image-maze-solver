@@ -16,10 +16,21 @@ public class DijkstraSolver {
 
     private Maze maze;
 
+    /**
+     *
+     * @param maze maze joka halutaan ratkaista. Sisältää kaksiulotteisen
+     * taulukon sekä tiedot aloitus- ja lopetuspisteistä
+     */
     public DijkstraSolver(Maze maze) {
         this.maze = maze;
     }
 
+    /**
+     * Metodi ratkaisee konstruktorissa annetusta mazesta nopeimman reitin
+     * Dijkstran algoritmillä.
+     *
+     * @return nopein reitti stackina
+     */
     public Stack<Node> solve() {
         Node start = maze.getStartNode();
         boolean foundSolution = false;
@@ -48,6 +59,19 @@ public class DijkstraSolver {
         if (!foundSolution) {
             return path;
         }
+
+        return findPath(path);
+    }
+
+    /**
+     * Metodi palauttaa nopeimman reitin aloittamalla maalista ja 
+     * käymällä edellisiä nodeja niin kauan kunnes edellinen node
+     * on null. 
+     * @param path Tyhjä stacki johon reitti halutaan
+     * 
+     * @return nopein reitti stackina
+     */
+    private Stack<Node> findPath(Stack<Node> path) {
         Node pathNode = maze.getEndNode();
         while (pathNode != null) {
             path.add(pathNode);
