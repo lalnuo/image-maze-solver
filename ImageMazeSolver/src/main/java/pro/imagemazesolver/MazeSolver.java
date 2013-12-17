@@ -4,6 +4,8 @@
  */
 package pro.imagemazesolver;
 
+import pro.imagemazesolver.domain.Node;
+import pro.imagemazesolver.domain.Maze;
 import java.util.Scanner;
 import java.util.Stack;
 
@@ -24,12 +26,12 @@ public class MazeSolver {
      *
      */
     public MazeSolver() {
-        System.out.print("Anna tiedoston nimi: ");
-        Scanner sc = new Scanner(System.in);
-        String filename = sc.nextLine();
-        System.out.print("Anna tallennustiedoston nimi (jotain.png): ");
-        String savename = sc.nextLine();
-        mazeMaker = new MazeMaker(filename,savename);
+//        System.out.print("Anna tiedoston nimi: ");
+//        Scanner sc = new Scanner(System.in);
+//        String filename = sc.nextLine();
+//        System.out.print("Anna tallennustiedoston nimi (jotain.png): ");
+//        String savename = sc.nextLine();
+        mazeMaker = new MazeMaker("bigSimple.png","bigSimpleSolution.png");
         maze = mazeMaker.imageToMaze();
         if (maze != null) {
             solveWithDijsktra();

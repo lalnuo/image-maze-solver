@@ -4,6 +4,8 @@
  */
 package pro.imagemazesolver;
 
+import pro.imagemazesolver.domain.Node;
+import pro.imagemazesolver.domain.Maze;
 import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -18,7 +20,6 @@ import javax.imageio.ImageIO;
  * @author lalli
  */
 class MazeMaker {
-
     private BufferedImage buffImage;
     boolean errorThrown;
     private String savename;

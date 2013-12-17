@@ -4,6 +4,7 @@
  */
 package pro.imagemazesolver;
 
+import pro.imagemazesolver.domain.Node;
 import java.awt.Color;
 import static junit.framework.Assert.assertEquals;
 
