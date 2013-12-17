@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite failures="0" time="0.006" errors="0" skipped="0" tests="5" name="pro.imagemazesolver.datastructures.NodeListTest">
+<testsuite failures="0" time="0.007" errors="0" skipped="0" tests="5" name="pro.imagemazesolver.datastructures.NodeListTest">
   <properties>
     <property name="java.runtime.name" value="OpenJDK Runtime Environment"/>
     <property name="sun.boot.library.path" value="/usr/lib/jvm/java-7-openjdk-amd64/jre/lib/amd64"/>
@@ -59,9 +59,9 @@
     <property name="sun.desktop" value="gnome"/>
     <property name="sun.cpu.isalist" value=""/>
   </properties>
-  <testcase time="0.002" classname="pro.imagemazesolver.datastructures.NodeListTest" name="testAdd"/>
-  <testcase time="0" classname="pro.imagemazesolver.datastructures.NodeListTest" name="testRemoveDecreasesListSize"/>
+  <testcase time="0.001" classname="pro.imagemazesolver.datastructures.NodeListTest" name="testRemoveDecreasesListSize"/>
   <testcase time="0" classname="pro.imagemazesolver.datastructures.NodeListTest" name="testGetWorks"/>
   <testcase time="0" classname="pro.imagemazesolver.datastructures.NodeListTest" name="testNodeListDuplicatesListSizeWhenItGetsFull"/>
+  <testcase time="0" classname="pro.imagemazesolver.datastructures.NodeListTest" name="testAdd"/>
   <testcase time="0.001" classname="pro.imagemazesolver.datastructures.NodeListTest" name="testRemoveMovesOtherValuesCorrectly"/>
 </testsuite>
