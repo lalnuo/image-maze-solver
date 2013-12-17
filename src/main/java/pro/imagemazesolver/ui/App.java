@@ -1,5 +1,6 @@
 package pro.imagemazesolver.ui;
 
+
 public class App {
 
     /**
@@ -9,7 +10,6 @@ public class App {
      */
     public static void main(String[] args) {
         MazeSolver solver = new MazeSolver();
-
 
 
     }

@@ -17,19 +17,12 @@ public class Node implements Comparable<Node> {
     private int y;
     private int x;
     private Color color;
-    private int weight;
+    private float weight;
     private boolean wall;
     private NodeList naapurit = new NodeList();
     private boolean visited;
     private Node path;
-
-    public Node getPath() {
-        return path;
-    }
-
-    public void setVisited(boolean visited) {
-        this.visited = visited;
-    }
+    private int distanceToPrevNode = Integer.MAX_VALUE;
 
     public Node(int y, int x, Color color) {
         this.x = x;
@@ -39,11 +32,27 @@ public class Node implements Comparable<Node> {
         this.visited = false;
     }
 
+    public int getDistanceToPrevNode() {
+        return distanceToPrevNode;
+    }
+
+    public void setDistanceToPrevNode(int distanceToPrevNode) {
+        this.distanceToPrevNode = distanceToPrevNode;
+    }
+
+    public Node getPath() {
+        return path;
+    }
+
+    public void setVisited(boolean visited) {
+        this.visited = visited;
+    }
+
     public void addNaapuri(Node node) {
         naapurit.add(node);
     }
 
-    public int getWeight() {
+    public float getWeight() {
         return weight;
     }
 
@@ -55,7 +64,7 @@ public class Node implements Comparable<Node> {
         return visited;
     }
 
-    public void setWeight(int weight) {
+    public void setWeight(float weight) {
         this.weight = weight;
     }
 
@@ -96,7 +105,7 @@ public class Node implements Comparable<Node> {
     }
 
     public int compareTo(Node t) {
-        return this.getWeight() - t.getWeight();
+        return (int) (this.getWeight() - t.getWeight());
 
     }
 

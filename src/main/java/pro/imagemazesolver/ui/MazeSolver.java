@@ -5,10 +5,9 @@
 package pro.imagemazesolver.ui;
 
 import pro.imagemazesolver.algorithms.DijkstraSolver;
-import pro.imagemazesolver.domain.Node;
 import pro.imagemazesolver.domain.Maze;
 import java.util.Scanner;
-import java.util.Stack;
+import pro.imagemazesolver.algorithms.AStarSolver;
 import pro.imagemazesolver.datastructures.NodeStack;
 
 /**
@@ -21,10 +20,10 @@ public class MazeSolver {
     private MazeMaker mazeMaker;
 
     /**
-     * Metodissa kysytään käyttäjältä kuvatiedoston nimi ja talletustiedoston nimen
-     * , jonka jälkeen annetaan tiedostonimi uudelle MazeMakerille,
-     * MazeMaker palauttaa kaksiulotteisin taulukon joka voidaan
-     * sen jälkeen ratkaista halutulla algoritmillä.
+     * Metodissa kysytään käyttäjältä kuvatiedoston nimi ja talletustiedoston
+     * nimen , jonka jälkeen annetaan tiedostonimi uudelle MazeMakerille,
+     * MazeMaker palauttaa kaksiulotteisin taulukon joka voidaan sen jälkeen
+     * ratkaista halutulla algoritmillä.
      *
      */
     public MazeSolver() {
@@ -33,18 +32,24 @@ public class MazeSolver {
         String filename = sc.nextLine();
         System.out.print("Anna tallennustiedoston nimi (jotain.png): ");
         String savename = sc.nextLine();
-        mazeMaker = new MazeMaker(filename,savename);
-        maze = mazeMaker.imageToMaze();
+        mazeMaker = new MazeMaker(filename, savename);
+        System.out.print("Haluatko että käytetään: 1. Dijkstraa, 2. A* (syötä 1 tai 2): ");
+        String solveWith = sc.nextLine();
+        maze = mazeMaker.imageToMaze(solveWith);
         if (maze != null) {
-            solveWithDijsktra();
-        }else{
+            if (solveWith.equals("1")) {
+                solveWithDijsktra();
+            } else {
+                solveWithAStar();
+            }
+        } else {
             System.out.println("No solutions found!");
         }
     }
 
     /**
-     * Kutsuu DijkstraSolveria ja sen jälkeen antaa mazeMakerille
-     * saadun pathin, jotta mazeMaker voi piirtää sen.
+     * Kutsuu DijkstraSolveria ja sen jälkeen antaa mazeMakerille saadun pathin,
+     * jotta mazeMaker voi piirtää sen.
      */
     public void solveWithDijsktra() {
         DijkstraSolver dSolver = new DijkstraSolver(maze);
@@ -52,5 +57,11 @@ public class MazeSolver {
         mazeMaker.drawPath(path);
 
 
+    }
+
+    private void solveWithAStar() {
+        AStarSolver aSolver = new AStarSolver(maze);
+        NodeStack path = aSolver.solve();
+        mazeMaker.drawPath(path);
     }
 }

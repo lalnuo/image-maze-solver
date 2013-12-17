@@ -18,14 +18,14 @@ public class MazeMakerTest extends TestCase {
 
     public void testMazeMakerFindsRightStartNode() {
         MazeMaker mazeMaker = new MazeMaker("testmaze.png","testfile.png");
-        Maze maze = mazeMaker.imageToMaze();
+        Maze maze = mazeMaker.imageToMaze("1");
 
         assertEquals(maze.getStartNode().getX(), 2);
         assertEquals(maze.getStartNode().getY(), 0);
     }
     public void testMazeMakerReturnsNullIfEndOrStartNotFound(){
         MazeMaker mazeMaker = new MazeMaker("testmaze2.png","testfile.png");
-        Maze maze = mazeMaker.imageToMaze();
+        Maze maze = mazeMaker.imageToMaze("1");
         assertEquals(maze,null);
     }
     public void testMazeMakerThrowsExceptionOnUnknownFile() {
@@ -35,7 +35,7 @@ public class MazeMakerTest extends TestCase {
 
     public void testMazeMakerFindsRightEndNode() {
         MazeMaker mazeMaker = new MazeMaker("testmaze.png","testfile.png");
-        Maze maze = mazeMaker.imageToMaze();
+        Maze maze = mazeMaker.imageToMaze("1");
 
         assertEquals(maze.getEndNode().getX(), 0);
         assertEquals(maze.getEndNode().getY(), 2);

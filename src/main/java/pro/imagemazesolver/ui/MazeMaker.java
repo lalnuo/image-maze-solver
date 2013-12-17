@@ -21,6 +21,7 @@ import pro.imagemazesolver.datastructures.NodeStack;
  * @author lalli
  */
 class MazeMaker {
+
     private BufferedImage buffImage;
     boolean errorThrown;
     private String savename;
@@ -42,8 +43,8 @@ class MazeMaker {
             errorThrown = true;
             Logger.getLogger(MazeMaker.class.getName()).log(Level.SEVERE, null, ex);
         }
-
-
+        
+        
     }
 
     /**
@@ -54,21 +55,27 @@ class MazeMaker {
      * @return palauttaa mazen joka sisältää 2 ulotteisen taulukon,
      * aloituspisteen ja maalipisteen.
      */
-    public Maze imageToMaze() {
+    public Maze imageToMaze(String algorithm) {
+        int initializeValue;
+        if (algorithm.equals("1")) {
+            initializeValue = 0;
+        } else {
+            initializeValue = Integer.MAX_VALUE;
+        }
         int height = buffImage.getHeight();
         int width = buffImage.getWidth();
         Maze maze = new Maze();
-
+        
         Node[][] mazeArray = new Node[height][width];
         boolean startFound = false;
         boolean endFound = false;
-
+        
         for (int i = 0; i < height; i++) {
             for (int j = 0; j < width; j++) {
                 int color;
-
+                
                 color = buffImage.getRGB(j, i);
-
+                
                 Node node = new Node(i, j, new Color(color));
                 if (node.getColor().equals(Color.RED)) {
                     maze.setStartNode(node);
@@ -79,6 +86,7 @@ class MazeMaker {
                 } else if (node.getColor().getRGB() < -100000) {
                     node.setWall(true);
                 }
+                node.setWeight(initializeValue);
                 mazeArray[i][j] = node;
             }
         }
@@ -88,11 +96,11 @@ class MazeMaker {
         }
         setNeightbours(mazeArray);
         maze.setMaze(mazeArray);
-
+        
         return maze;
-
-
-
+        
+        
+        
     }
 
     /**
@@ -121,33 +129,34 @@ class MazeMaker {
                 }
             }
         }
-
-
+        
+        
     }
 
     /**
      * Metodi käy stackin läpi, hakee nodeista X ja Y koordinaatit ja värjää
      * BufferedImagessa olevan pisteen punaiseksi merkkaamaan reittiä. Lopulta
      * ImageIO. kirjoittaa kuvan halutun nimiseen tiedostoon.
+     *
      * @params path reitti maalista alkuun.
-     * 
+     *
      */
     public void drawPath(NodeStack path) {
         try {
             int color = Color.RED.getRGB();
             while (!path.isEmpty()) {
-
+                
                 Node node = path.pop();
                 buffImage.setRGB(node.getX(), node.getY(), color);
-
-
+                
+                
             }
             File outputfile = new File(savename);
             ImageIO.write(buffImage, "png", outputfile);
         } catch (IOException ex) {
             Logger.getLogger(MazeMaker.class.getName()).log(Level.SEVERE, null, ex);
         }
-
-
+        
+        
     }
 }

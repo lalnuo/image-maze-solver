@@ -71,7 +71,7 @@ public class DijkstraSolver {
     protected void relax(Node node1, Node node, Heap heap) {
         if (!node1.isVisited() && !node.isWall() && node1.getWeight() < node.getWeight() + 1) {
             node1.setPath(node);
-            node1.setWeight(1 + node.getWeight());
+            node1.setWeight(1+ node.getWeight());
             heap.add(node1);
         }
     }

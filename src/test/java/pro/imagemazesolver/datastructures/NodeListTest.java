@@ -45,7 +45,8 @@ public class NodeListTest extends TestCase {
         node2.setWeight(100);
         list.add(node2);
         list.add(node);
-        assertEquals(100, list.get(1).getWeight());
+        float hund = 100; // jostain syystä 100.0 ei toimi assertEqualissa
+        assertEquals(hund, list.get(1).getWeight());
     }
 
     public void testRemoveMovesOtherValuesCorrectly() {
