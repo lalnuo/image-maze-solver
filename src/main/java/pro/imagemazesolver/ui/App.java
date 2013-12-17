@@ -1,14 +1,5 @@
-package pro.imagemazesolver;
+package pro.imagemazesolver.ui;
 
-import pro.imagemazesolver.domain.Node;
-import java.awt.Color;
-import java.util.Scanner;
-import pro.imagemazesolver.datastructures.Heap;
-
-/**
- * Hello world!
- *
- */
 public class App {
 
     /**
@@ -18,7 +9,7 @@ public class App {
      */
     public static void main(String[] args) {
         MazeSolver solver = new MazeSolver();
-   
+
 
 
     }

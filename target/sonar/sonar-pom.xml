@@ -42,22 +42,22 @@
     </pluginRepository>
   </pluginRepositories>
   <build>
-    <sourceDirectory>/home/lalli/projects/image-maze-solver/ImageMazeSolver/src/main/java</sourceDirectory>
-    <scriptSourceDirectory>/home/lalli/projects/image-maze-solver/ImageMazeSolver/src/main/scripts</scriptSourceDirectory>
-    <testSourceDirectory>/home/lalli/projects/image-maze-solver/ImageMazeSolver/src/test/java</testSourceDirectory>
-    <outputDirectory>/home/lalli/projects/image-maze-solver/ImageMazeSolver/target/classes</outputDirectory>
-    <testOutputDirectory>/home/lalli/projects/image-maze-solver/ImageMazeSolver/target/test-classes</testOutputDirectory>
+    <sourceDirectory>/home/lalli/projects/image-maze-solver/src/main/java</sourceDirectory>
+    <scriptSourceDirectory>/home/lalli/projects/image-maze-solver/src/main/scripts</scriptSourceDirectory>
+    <testSourceDirectory>/home/lalli/projects/image-maze-solver/src/test/java</testSourceDirectory>
+    <outputDirectory>/home/lalli/projects/image-maze-solver/target/classes</outputDirectory>
+    <testOutputDirectory>/home/lalli/projects/image-maze-solver/target/test-classes</testOutputDirectory>
     <resources>
       <resource>
-        <directory>/home/lalli/projects/image-maze-solver/ImageMazeSolver/src/main/resources</directory>
+        <directory>/home/lalli/projects/image-maze-solver/src/main/resources</directory>
       </resource>
     </resources>
     <testResources>
       <testResource>
-        <directory>/home/lalli/projects/image-maze-solver/ImageMazeSolver/src/test/resources</directory>
+        <directory>/home/lalli/projects/image-maze-solver/src/test/resources</directory>
       </testResource>
     </testResources>
-    <directory>/home/lalli/projects/image-maze-solver/ImageMazeSolver/target</directory>
+    <directory>/home/lalli/projects/image-maze-solver/target</directory>
     <finalName>ImageMazeSolver-1.0-SNAPSHOT</finalName>
     <pluginManagement>
       <plugins>
@@ -195,7 +195,7 @@
               <goal>site</goal>
             </goals>
             <configuration>
-              <outputDirectory>/home/lalli/projects/image-maze-solver/ImageMazeSolver/target/site</outputDirectory>
+              <outputDirectory>/home/lalli/projects/image-maze-solver/target/site</outputDirectory>
               <reportPlugins>
                 <reportPlugin>
                   <groupId>org.apache.maven.plugins</groupId>
@@ -211,7 +211,7 @@
               <goal>deploy</goal>
             </goals>
             <configuration>
-              <outputDirectory>/home/lalli/projects/image-maze-solver/ImageMazeSolver/target/site</outputDirectory>
+              <outputDirectory>/home/lalli/projects/image-maze-solver/target/site</outputDirectory>
               <reportPlugins>
                 <reportPlugin>
                   <groupId>org.apache.maven.plugins</groupId>
@@ -222,7 +222,7 @@
           </execution>
         </executions>
         <configuration>
-          <outputDirectory>/home/lalli/projects/image-maze-solver/ImageMazeSolver/target/site</outputDirectory>
+          <outputDirectory>/home/lalli/projects/image-maze-solver/target/site</outputDirectory>
           <reportPlugins>
             <reportPlugin>
               <groupId>org.apache.maven.plugins</groupId>
@@ -244,13 +244,13 @@
           </execution>
         </executions>
         <configuration>
-          <argLine>-javaagent:/tmp/jacocoagent3853773185463172274.jar=destfile=target/jacoco.exec,excludes=*_javassist_*</argLine>
+          <argLine>-javaagent:/tmp/jacocoagent1658576224296984867.jar=destfile=target/jacoco.exec,excludes=*_javassist_*</argLine>
           <testFailureIgnore>true</testFailureIgnore>
         </configuration>
       </plugin>
     </plugins>
   </build>
   <reporting>
-    <outputDirectory>/home/lalli/projects/image-maze-solver/ImageMazeSolver/target/site</outputDirectory>
+    <outputDirectory>/home/lalli/projects/image-maze-solver/target/site</outputDirectory>
   </reporting>
 </project>

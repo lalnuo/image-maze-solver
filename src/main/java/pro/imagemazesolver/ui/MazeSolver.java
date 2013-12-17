@@ -2,8 +2,9 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package pro.imagemazesolver;
+package pro.imagemazesolver.ui;
 
+import pro.imagemazesolver.algorithms.DijkstraSolver;
 import pro.imagemazesolver.domain.Node;
 import pro.imagemazesolver.domain.Maze;
 import java.util.Scanner;

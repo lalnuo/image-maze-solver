@@ -2,12 +2,13 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package pro.imagemazesolver;
+package pro.imagemazesolver.algorithms;
 
 import pro.imagemazesolver.domain.Node;
 import pro.imagemazesolver.domain.Maze;
 import java.awt.Color;
 import static junit.framework.Assert.assertEquals;
+import pro.imagemazesolver.datastructures.Heap;
 
 /**
  *
@@ -42,7 +43,29 @@ public class DijkstraSolverTest {
         assertEquals(7, solver.solve().size());
     }
 
-   
+    public void testRelaxWorks() {
+        Maze maze = new Maze();
+        DijkstraSolver solver = new DijkstraSolver(maze);
+        Heap heap = new Heap();
+        Node node = new Node(0, 0, Color.blue);
+        node.setWeight(5);
+        Node node1 = new Node(0, 0, Color.blue);
+        node1.setWeight(10);
+        solver.relax(node1, node, heap);
+        assertEquals(node1.getPath(), null);
+    }
+
+    public void testRelaxWorks2() {
+        Maze maze = new Maze();
+        DijkstraSolver solver = new DijkstraSolver(maze);
+        Heap heap = new Heap();
+        Node node = new Node(0, 0, Color.blue);
+        node.setWeight(10);
+        Node node1 = new Node(0, 0, Color.blue);
+        node1.setWeight(5);
+        solver.relax(node1, node, heap);
+        assertEquals(node1.getPath(), node);
+    }
 
     public void testSolverReturnsEmptyStackIfNoWayWasFound() {
         Node[][] mazeArray = createMazeArray();
@@ -57,6 +80,23 @@ public class DijkstraSolverTest {
         DijkstraSolver solver = new DijkstraSolver(maze);
 
         assertEquals(0, solver.solve().size());
+    }
+
+    public void testIsThisGoalReturnsTrueOnRightGoal() {
+        Maze maze = new Maze();
+        Node node = new Node(0, 0, Color.blue);
+        maze.setEndNode(node);
+        DijkstraSolver solver = new DijkstraSolver(maze);
+        assertEquals(true, solver.isThisGoal(node));
+    }
+
+    public void testIsThisGoalReturnsFalseOnWrongGoal() {
+        Maze maze = new Maze();
+        Node node = new Node(0, 0, Color.blue);
+        Node node2 = new Node(0, 0, Color.blue);
+        maze.setEndNode(node2);
+        DijkstraSolver solver = new DijkstraSolver(maze);
+        assertEquals(false, solver.isThisGoal(node));
     }
 
     public Node[][] createMazeArray() {

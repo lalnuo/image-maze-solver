@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package pro.imagemazesolver;
+package pro.imagemazesolver.datastructures;
 
 import java.awt.Color;
 import static junit.framework.Assert.assertEquals;
@@ -61,6 +61,19 @@ public class NodeListTest extends TestCase {
         assertEquals(node1, list.get(0));
         assertEquals(node2, list.get(1));
 
+    }
+    
+    public void testNodeListDuplicatesListSizeWhenItGetsFull(){
+        NodeList list = new NodeList();
+        Node node = new Node(0,0,Color.blue);
+        list.add(node);
+        list.add(node);
+        list.add(node);
+        list.add(node);
+        list.add(node);
+        list.add(node);
+        list.add(node);
+        assertEquals(8,list.list.length);
     }
     // TODO add test methods here. The name must begin with 'test'. For example:
     // public void testHello() {}

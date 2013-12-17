@@ -12,7 +12,7 @@ import pro.imagemazesolver.domain.Node;
  */
 public class NodeList {
 
-    private Node[] list = new Node[4];
+    protected Node[] list = new Node[4];
     private int listSize = 0;
 
     public NodeList() {
@@ -64,7 +64,7 @@ public class NodeList {
      * koska maksimi naapurein määrä on 4
      * 
      */
-    private void increaseArraySize() {
+    protected void increaseArraySize() {
         Node[] uusi = new Node[list.length * 2];
         for (int i = 0; i < list.length; i++) {
             uusi[i] = list[i];

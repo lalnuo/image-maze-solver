@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package pro.imagemazesolver;
+package pro.imagemazesolver.datastructures;
 
 import static junit.framework.Assert.assertEquals;
 import junit.framework.TestCase;
@@ -45,6 +45,8 @@ public class HeapTest extends TestCase {
         heap.delMin();
         assertEquals("2 3 ", heap.toString());
     }
+    
+    
 
     public void testHeapifyWorks2() {
         Heap heap = new Heap();

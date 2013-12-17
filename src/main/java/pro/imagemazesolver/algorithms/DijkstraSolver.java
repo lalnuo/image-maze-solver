@@ -2,12 +2,10 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package pro.imagemazesolver;
+package pro.imagemazesolver.algorithms;
 
 import pro.imagemazesolver.domain.Node;
 import pro.imagemazesolver.domain.Maze;
-import java.util.ArrayList;
-import java.util.Stack;
 import pro.imagemazesolver.datastructures.Heap;
 import pro.imagemazesolver.datastructures.NodeList;
 import pro.imagemazesolver.datastructures.NodeStack;
@@ -17,8 +15,9 @@ import pro.imagemazesolver.datastructures.NodeStack;
  * @author lalli
  */
 public class DijkstraSolver {
-    
+
     private Maze maze;
+    private boolean foundSolution = false;
 
     /**
      *
@@ -37,28 +36,27 @@ public class DijkstraSolver {
      */
     public NodeStack solve() {
         Node start = maze.getStartNode();
-        boolean foundSolution = false;
         Heap heap = new Heap();
         heap.add(start);
+
         while (!heap.isEmpty()) {
             Node node = (Node) heap.delMin();
-            
-            if (node.equals(maze.getEndNode())) {
-                foundSolution = true;
+
+            if (isThisGoal(node)) {
                 break;
             }
+            
             NodeList naapurit = node.getNaapurit();
             for (int i = 0; i < naapurit.size(); i++) {
                 relax(naapurit.get(i), node, heap);
-                
             }
             node.setVisited(true);
         }
+
         NodeStack path = new NodeStack();
         if (!foundSolution) {
             return path;
         }
-        
         return findPath(path);
     }
 
@@ -70,7 +68,7 @@ public class DijkstraSolver {
      * @param node Lähtönode
      * @param heap Heap johon läpikäymättömät nodet kasataan
      */
-    public void relax(Node node1, Node node, Heap heap) {
+    protected void relax(Node node1, Node node, Heap heap) {
         if (!node1.isVisited() && !node.isWall() && node1.getWeight() < node.getWeight() + 1) {
             node1.setPath(node);
             node1.setWeight(1 + node.getWeight());
@@ -86,12 +84,24 @@ public class DijkstraSolver {
      *
      * @return nopein reitti stackina
      */
-    private NodeStack findPath(NodeStack path) {
+    protected NodeStack findPath(NodeStack path) {
         Node pathNode = maze.getEndNode();
         while (pathNode != null) {
             path.add(pathNode);
             pathNode = pathNode.getPath();
         }
         return path;
+    }
+
+    /**
+     * Metodi tarkastaa onko annettu node mazen maalinode
+     * @param node Tarkastettava node
+     * @return totuusarvon oliko kyseessä maalinode
+     */
+    protected boolean isThisGoal(Node node) {
+        if (node == maze.getEndNode()) {
+            foundSolution = true;
+        }
+        return foundSolution;
     }
 }

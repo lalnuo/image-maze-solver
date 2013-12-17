@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package pro.imagemazesolver;
+package pro.imagemazesolver.domain;
 
 import pro.imagemazesolver.domain.Node;
 import java.awt.Color;
