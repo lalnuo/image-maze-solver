@@ -27,14 +27,17 @@ public class MazeSolver {
      *
      */
     public MazeSolver() {
-        System.out.print("Anna tiedoston nimi: ");
-        Scanner sc = new Scanner(System.in);
-        String filename = sc.nextLine();
-        System.out.print("Anna tallennustiedoston nimi (jotain.png): ");
-        String savename = sc.nextLine();
+        String filename = "bigSimple.png";
+        String savename = "bigSimpleSolution.png";
+        String solveWith = "1";
+//        System.out.print("Anna tiedoston nimi: ");
+//        Scanner sc = new Scanner(System.in);
+//        String filename = sc.nextLine();
+//        System.out.print("Anna tallennustiedoston nimi (jotain.png): ");
+//        String savename = sc.nextLine();
+//        System.out.print("Haluatko että käytetään: 1. Dijkstraa, 2. A* (syötä 1 tai 2): ");
+//        String solveWith = sc.nextLine();
         mazeMaker = new MazeMaker(filename, savename);
-        System.out.print("Haluatko että käytetään: 1. Dijkstraa, 2. A* (syötä 1 tai 2): ");
-        String solveWith = sc.nextLine();
         maze = mazeMaker.imageToMaze(solveWith);
         if (maze != null) {
             if (solveWith.equals("1")) {
