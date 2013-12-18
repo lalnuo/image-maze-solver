@@ -12,7 +12,7 @@ import pro.imagemazesolver.domain.Node;
  */
 public class NodeList {
 
-    protected Node[] list = new Node[4];
+    protected Node[] list = new Node[8];
     private int listSize = 0;
 
     public NodeList() {

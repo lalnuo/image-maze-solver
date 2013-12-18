@@ -10,7 +10,6 @@ import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.util.Stack;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
@@ -25,6 +24,8 @@ class MazeMaker {
     private BufferedImage buffImage;
     boolean errorThrown;
     private String savename;
+    private int mazeHeight;
+    private int mazeWidth;
 
     /**
      * Metodi on luokan konstruktori. Konstruktorissa luetaan anettu tiedosto ja
@@ -39,12 +40,14 @@ class MazeMaker {
         try {
             File image = new File(imagepath);
             buffImage = ImageIO.read(image);
+            this.mazeHeight = buffImage.getHeight();
+            this.mazeWidth = buffImage.getWidth();
         } catch (IOException ex) {
             errorThrown = true;
             Logger.getLogger(MazeMaker.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-        
+
+
     }
 
     /**
@@ -55,27 +58,18 @@ class MazeMaker {
      * @return palauttaa mazen joka sisältää 2 ulotteisen taulukon,
      * aloituspisteen ja maalipisteen.
      */
-    public Maze imageToMaze(String algorithm) {
-        int initializeValue;
-        if (algorithm.equals("1")) {
-            initializeValue = 0;
-        } else {
-            initializeValue = Integer.MAX_VALUE;
-        }
-        int height = buffImage.getHeight();
-        int width = buffImage.getWidth();
+    public Maze imageToMaze(int algorithm) {
+        int initializeValue = getInitializeValue(algorithm);
         Maze maze = new Maze();
-        
-        Node[][] mazeArray = new Node[height][width];
+
+        Node[][] mazeArray = new Node[mazeHeight][mazeWidth];
         boolean startFound = false;
         boolean endFound = false;
-        
-        for (int i = 0; i < height; i++) {
-            for (int j = 0; j < width; j++) {
+
+        for (int i = 0; i < mazeHeight; i++) {
+            for (int j = 0; j < mazeWidth; j++) {
                 int color;
-                
                 color = buffImage.getRGB(j, i);
-                
                 Node node = new Node(i, j, new Color(color));
                 if (node.getColor().equals(Color.RED)) {
                     maze.setStartNode(node);
@@ -96,11 +90,11 @@ class MazeMaker {
         }
         setNeightbours(mazeArray);
         maze.setMaze(mazeArray);
-        
+
         return maze;
-        
-        
-        
+
+
+
     }
 
     /**
@@ -127,10 +121,22 @@ class MazeMaker {
                 if (j - 1 >= 0) {
                     node.addNaapuri(mazeArray[i][j - 1]);
                 }
+                if (i - 1 >= 0 && j - 1 >= 0) {
+                    node.addNaapuri(mazeArray[i - 1][j - 1]);
+                }
+                if (i - 1 >= 0 && j + 1 < mazeArray[0].length) {
+                    node.addNaapuri(mazeArray[i - 1][j + 1]);
+                }
+                if (i + 1 < mazeArray.length && j - 1 >= 0) {
+                    node.addNaapuri(mazeArray[i + 1][j - 1]);
+                }
+                if (i + 1 < mazeArray.length && j + 1 < mazeArray[0].length) {
+                    node.addNaapuri(mazeArray[i + 1][j + 1]);
+                }
             }
         }
-        
-        
+
+
     }
 
     /**
@@ -145,18 +151,34 @@ class MazeMaker {
         try {
             int color = Color.RED.getRGB();
             while (!path.isEmpty()) {
-                
+
                 Node node = path.pop();
                 buffImage.setRGB(node.getX(), node.getY(), color);
-                
-                
+
+
             }
             File outputfile = new File(savename);
             ImageIO.write(buffImage, "png", outputfile);
         } catch (IOException ex) {
             Logger.getLogger(MazeMaker.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-        
+
+
+    }
+
+    /**
+     * Metodi palauttaa algoritmiin tarvittavan alustusarvon nodeille.
+     *
+     * @param algorithm Käyttäjän valitsema algoritmi
+     * @return arvo jolla nodet tullaan alustamaan
+     */
+    protected int getInitializeValue(int algorithm) {
+        int initializeValue;
+        if (algorithm == 1) {
+            initializeValue = 0;
+        } else {
+            initializeValue = Integer.MAX_VALUE;
+        }
+        return initializeValue;
     }
 }

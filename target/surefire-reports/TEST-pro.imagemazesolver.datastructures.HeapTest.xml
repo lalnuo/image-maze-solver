@@ -64,5 +64,5 @@
   <testcase time="0" classname="pro.imagemazesolver.datastructures.HeapTest" name="testHeapifyWorks"/>
   <testcase time="0" classname="pro.imagemazesolver.datastructures.HeapTest" name="testHeapifyWorks2"/>
   <testcase time="0" classname="pro.imagemazesolver.datastructures.HeapTest" name="testHeapDelReturnsRight"/>
-  <testcase time="0.001" classname="pro.imagemazesolver.datastructures.HeapTest" name="testHeapDelReturnsHeapRight2"/>
+  <testcase time="0" classname="pro.imagemazesolver.datastructures.HeapTest" name="testHeapDelReturnsHeapRight2"/>
 </testsuite>

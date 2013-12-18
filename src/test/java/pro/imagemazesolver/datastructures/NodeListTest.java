@@ -74,7 +74,16 @@ public class NodeListTest extends TestCase {
         list.add(node);
         list.add(node);
         list.add(node);
-        assertEquals(8,list.list.length);
+        list.add(node);
+        list.add(node);
+        list.add(node);
+        assertEquals(16,list.list.length);
+    }
+    
+    public void testNodeListIncreaseArraySizeWorks(){
+        NodeList list = new NodeList();
+        list.increaseArraySize();
+        assertEquals(16,list.list.length);
     }
     // TODO add test methods here. The name must begin with 'test'. For example:
     // public void testHello() {}

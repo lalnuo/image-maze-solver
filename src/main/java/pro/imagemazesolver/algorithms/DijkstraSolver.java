@@ -14,10 +14,11 @@ import pro.imagemazesolver.datastructures.NodeStack;
  *
  * @author lalli
  */
-public class DijkstraSolver {
+public class DijkstraSolver implements Solver{
 
     private Maze maze;
     private boolean foundSolution = false;
+    NodeStack path = new NodeStack();
 
     /**
      *
@@ -45,7 +46,7 @@ public class DijkstraSolver {
             if (isThisGoal(node)) {
                 break;
             }
-            
+
             NodeList naapurit = node.getNaapurit();
             for (int i = 0; i < naapurit.size(); i++) {
                 relax(naapurit.get(i), node, heap);
@@ -53,11 +54,10 @@ public class DijkstraSolver {
             node.setVisited(true);
         }
 
-        NodeStack path = new NodeStack();
         if (!foundSolution) {
             return path;
         }
-        return findPath(path);
+        return findPath();
     }
 
     /**
@@ -71,7 +71,7 @@ public class DijkstraSolver {
     protected void relax(Node node1, Node node, Heap heap) {
         if (!node1.isVisited() && !node.isWall() && node1.getWeight() < node.getWeight() + 1) {
             node1.setPath(node);
-            node1.setWeight(1+ node.getWeight());
+            node1.setWeight(1 + node.getWeight());
             heap.add(node1);
         }
     }
@@ -84,7 +84,7 @@ public class DijkstraSolver {
      *
      * @return nopein reitti stackina
      */
-    protected NodeStack findPath(NodeStack path) {
+    protected NodeStack findPath() {
         Node pathNode = maze.getEndNode();
         while (pathNode != null) {
             path.add(pathNode);
@@ -95,6 +95,7 @@ public class DijkstraSolver {
 
     /**
      * Metodi tarkastaa onko annettu node mazen maalinode
+     *
      * @param node Tarkastettava node
      * @return totuusarvon oliko kyseessä maalinode
      */

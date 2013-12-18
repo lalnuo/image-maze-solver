@@ -9,6 +9,7 @@ import pro.imagemazesolver.domain.Maze;
 import java.awt.Color;
 import static junit.framework.Assert.assertEquals;
 import pro.imagemazesolver.datastructures.Heap;
+import pro.imagemazesolver.datastructures.NodeStack;
 
 /**
  *
@@ -69,16 +70,19 @@ public class DijkstraSolverTest {
 
     public void testSolverReturnsEmptyStackIfNoWayWasFound() {
         Node[][] mazeArray = createMazeArray();
-        mazeArray[1][1].setWall(true);
-        mazeArray[0][1].setWall(true);
-        mazeArray[1][0].setWall(true);
+        mazeArray[1][1].setWall(true);     
+        mazeArray[0][1].setWall(true);     
+        mazeArray[1][0].setWall(true);     
+        mazeArray[2][0].setWall(true);     
+        mazeArray[2][1].setWall(true);     
+        mazeArray[1][2].setWall(true);     
         Maze maze = new Maze();
 
         maze.setMaze(mazeArray);
         maze.setStartNode(mazeArray[0][0]);
         maze.setEndNode(mazeArray[0][2]);
         DijkstraSolver solver = new DijkstraSolver(maze);
-
+        
         assertEquals(0, solver.solve().size());
     }
 

@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
-Test set: pro.imagemazesolver.domain.NodeTest
+Test set: pro.imagemazesolver.algorithms.AStarSolverTest
 -------------------------------------------------------------------------------
-Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.015 sec
+Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.001 sec
