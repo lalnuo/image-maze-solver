@@ -17,7 +17,7 @@ public class App {
         String savename = sc.nextLine();
         System.out.print("Haluatko että käytetään: 1. Dijkstraa, 2. A* (syötä 1 tai 2): ");
         int solveWith = Integer.parseInt(sc.nextLine());
-        MazeSolver solver = new MazeSolver(filename,savename, 2);
+        MazeSolver solver = new MazeSolver(filename,"solved/"+savename, 2);
         
 
 
