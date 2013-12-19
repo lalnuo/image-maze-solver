@@ -32,4 +32,16 @@ public class NodeTest {
         assertEquals(false, node.isWall());
     }
     
+    public void testNodeComparingWorks(){
+        Node node = new Node(0,0,Color.red);
+        Node node1 = new Node(0,0,Color.red);
+        Node result;
+        if(node.compareTo(node)>node.compareTo(node1)){
+            result = node;
+        }else{
+            result=node1;
+        }
+        assertEquals(node1,result);
+    }
+    
 }

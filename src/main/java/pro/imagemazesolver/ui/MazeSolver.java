@@ -26,17 +26,15 @@ public class MazeSolver {
      */
     public MazeSolver(String filename, String savename, int solveWith) {
         Solver solver;
-      
-
         mazeMaker = new MazeMaker(filename, savename);
         maze = mazeMaker.imageToMaze(solveWith);
         if (maze == null) {
             System.out.println("No solutions found.");
             return;
         }
-        if(solveWith == 1){
+        if (solveWith == 1) {
             solver = new DijkstraSolver(maze);
-        }else{
+        } else {
             solver = new AStarSolver(maze);
         }
         mazeMaker.drawPath(solver.solve());

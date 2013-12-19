@@ -24,8 +24,8 @@ class MazeMaker {
     private BufferedImage buffImage;
     boolean errorThrown;
     private String savename;
-    private int mazeHeight;
-    private int mazeWidth;
+    protected int mazeHeight;
+    protected int mazeWidth;
 
     /**
      * Metodi on luokan konstruktori. Konstruktorissa luetaan anettu tiedosto ja
@@ -61,30 +61,13 @@ class MazeMaker {
     public Maze imageToMaze(int algorithm) {
         int initializeValue = getInitializeValue(algorithm);
         Maze maze = new Maze();
-
         Node[][] mazeArray = new Node[mazeHeight][mazeWidth];
-        boolean startFound = false;
-        boolean endFound = false;
-
         for (int i = 0; i < mazeHeight; i++) {
             for (int j = 0; j < mazeWidth; j++) {
-                int color;
-                color = buffImage.getRGB(j, i);
-                Node node = new Node(i, j, new Color(color));
-                if (node.getColor().equals(Color.RED)) {
-                    maze.setStartNode(node);
-                    startFound = true;
-                } else if (node.getColor().equals(Color.BLUE)) {
-                    maze.setEndNode(node);
-                    endFound = true;
-                } else if (node.getColor().getRGB() < -100000) {
-                    node.setWall(true);
-                }
-                node.setWeight(initializeValue);
-                mazeArray[i][j] = node;
+                pixelToNode(i, j, maze, mazeArray, initializeValue);
             }
         }
-        if (!startFound || !endFound) {
+        if (maze.getStartNode() == null || maze.getEndNode() == null) {
             System.out.println("Didn't find start or end point");
             return null;
         }
@@ -92,51 +75,65 @@ class MazeMaker {
         maze.setMaze(mazeArray);
 
         return maze;
-
-
-
     }
 
     /**
-     * Metodi muuntaa aiemmin konstruktorissa annetun tiedoston
-     * kaksiulotteiseksi taulukoksi, ja kutsuu setNeightbours metodia
-     * naapureiden asettamiseksi.
+     * Metodi muuttaa kuvasta otetun pikselin Nodeksi.
      *
-     * @return palauttaa mazen joka sisältää 2 ulotteisen taulukon,
-     * aloituspisteen ja maalipisteen.
+     * @param y pikselin Y
+     * @param x pikselin X
+     * @param maze maze jota käsitellään
+     * @param mazeArray mazeen talletettava mazeArray
+     * @param initializeValue arvo jolla noden paino alustetaan
+     */
+    protected void pixelToNode(int y, int x, Maze maze, Node[][] mazeArray, int initializeValue) {
+        int color;
+        color = buffImage.getRGB(x, y);
+        Node node = new Node(y, x, new Color(color));
+        if (node.getColor().equals(Color.RED)) {
+            maze.setStartNode(node);
+        } else if (node.getColor().equals(Color.BLUE)) {
+            maze.setEndNode(node);
+        } else if (node.getColor().getRGB() < -100000) {
+            node.setWall(true);
+        }
+        node.setWeight(initializeValue);
+        mazeArray[y][x] = node;
+    }
+
+    /**
+     * Metodi laskee mazeArrayn jokaiselle nodelle naapurinodet ja asettaa ne
+     * kyseisen noden vieruslistaan.
+     *
+     * @param mazeArray kaksiulotteinen taulukko joka sisältää nodet
      */
     private void setNeightbours(Node[][] mazeArray) {
         for (int i = 0; i < mazeArray.length; i++) {
             for (int j = 0; j < mazeArray[0].length; j++) {
                 Node node = mazeArray[i][j];
-                if (i + 1 < mazeArray.length) {
-                    node.addNaapuri(mazeArray[i + 1][j]);
-                }
-                if (i - 1 >= 0) {
-                    node.addNaapuri(mazeArray[i - 1][j]);
-                }
-                if (j + 1 < mazeArray[0].length) {
-                    node.addNaapuri(mazeArray[i][j + 1]);
-                }
-                if (j - 1 >= 0) {
-                    node.addNaapuri(mazeArray[i][j - 1]);
-                }
-                if (i - 1 >= 0 && j - 1 >= 0) {
-                    node.addNaapuri(mazeArray[i - 1][j - 1]);
-                }
-                if (i - 1 >= 0 && j + 1 < mazeArray[0].length) {
-                    node.addNaapuri(mazeArray[i - 1][j + 1]);
-                }
-                if (i + 1 < mazeArray.length && j - 1 >= 0) {
-                    node.addNaapuri(mazeArray[i + 1][j - 1]);
-                }
-                if (i + 1 < mazeArray.length && j + 1 < mazeArray[0].length) {
-                    node.addNaapuri(mazeArray[i + 1][j + 1]);
+                for (int k = -1; k < 2; k++) {
+                    for (int l = -1; l < 2; l++) {
+                        if (!overflow(node.getX() + l, node.getY() + k) && !(i == 0 && j == 0)) {
+                            node.addNaapuri(mazeArray[node.getY() + k][node.getX() + l]);
+                        }
+                    }
                 }
             }
         }
+    }
 
-
+    /**
+     * Metodi tarkastaa meneekö koordinaatit mazen rajojen yli
+     *
+     * @param x x koordinaatti
+     * @param y y koordinaati
+     * @return menikö yli vai ei
+     */
+    public boolean overflow(int x, int y) {
+        if (x >= 0 && x < mazeWidth && y < mazeHeight && y >= 0) {
+            return false;
+        }
+        return true;
     }
 
     /**

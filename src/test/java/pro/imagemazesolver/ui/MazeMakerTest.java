@@ -7,6 +7,7 @@ package pro.imagemazesolver.ui;
 import pro.imagemazesolver.domain.Maze;
 import static junit.framework.Assert.assertEquals;
 import junit.framework.TestCase;
+import pro.imagemazesolver.domain.Node;
 
 /**
  *
@@ -46,5 +47,25 @@ public class MazeMakerTest extends TestCase {
         assertEquals(0,mazeMaker.getInitializeValue(1));
         assertEquals(Integer.MAX_VALUE,mazeMaker.getInitializeValue(2));
 
+    }
+    
+    public void testOverflowWorks(){
+        MazeMaker mazeMaker = new MazeMaker("testmaze.png","testfile.png");
+        mazeMaker.mazeHeight = 100;
+        assertEquals(true,mazeMaker.overflow(0, 100));
+    }
+    public void testOverflowWorks2(){
+        MazeMaker mazeMaker = new MazeMaker("testmaze.png","testfile.png");
+        mazeMaker.mazeHeight = 100;
+        assertEquals(false,mazeMaker.overflow(0, 99));
+    }
+    
+    public void testPixelToNodeWorks(){
+        MazeMaker mazeMaker = new MazeMaker("testmaze.png","testfile.png");
+        Node[][] mazeArray = new Node[3][3];
+        Maze maze = new Maze();
+        mazeMaker.pixelToNode(0, 2, maze, mazeArray, -1);
+        assertEquals("-1.0",maze.getStartNode().toString());
+        
     }
 }
