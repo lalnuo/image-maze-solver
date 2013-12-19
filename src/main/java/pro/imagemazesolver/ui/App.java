@@ -10,15 +10,15 @@ public class App {
      * @param args
      */
     public static void main(String[] args) {
-//        System.out.print("Anna tiedoston nimi: ");
-//        Scanner sc = new Scanner(System.in);
-//        String filename = sc.nextLine();
-//        System.out.print("Anna tallennustiedoston nimi (jotain.png): ");
-//        String savename = sc.nextLine();
-//        System.out.print("Haluatko että käytetään: 1. Dijkstraa, 2. A* (syötä 1 tai 2): ");
-//        int solveWith = Integer.parseInt(sc.nextLine());
-//        MazeSolver solver = new MazeSolver(filename,savename, 2);
-        MazeSolver solver = new MazeSolver("braid.gif","final.png", 2);
+        System.out.print("Anna tiedoston nimi: ");
+        Scanner sc = new Scanner(System.in);
+        String filename = sc.nextLine();
+        System.out.print("Anna tallennustiedoston nimi (jotain.png): ");
+        String savename = sc.nextLine();
+        System.out.print("Haluatko että käytetään: 1. Dijkstraa, 2. A* (syötä 1 tai 2): ");
+        int solveWith = Integer.parseInt(sc.nextLine());
+        MazeSolver solver = new MazeSolver(filename,savename, 2);
+//        MazeSolver solver = new MazeSolver("braid.gif","final.png", 2);  // for speed testing
         
 
 
