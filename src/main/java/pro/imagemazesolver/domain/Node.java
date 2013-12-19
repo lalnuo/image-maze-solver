@@ -5,7 +5,6 @@
 package pro.imagemazesolver.domain;
 
 import java.awt.Color;
-import java.util.ArrayList;
 import pro.imagemazesolver.datastructures.NodeList;
 
 /**

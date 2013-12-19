@@ -26,6 +26,7 @@ public class MazeSolver {
      */
     public MazeSolver(String filename, String savename, int solveWith) {
         Solver solver;
+      
 
         mazeMaker = new MazeMaker(filename, savename);
         maze = mazeMaker.imageToMaze(solveWith);
@@ -33,14 +34,10 @@ public class MazeSolver {
             System.out.println("No solutions found.");
             return;
         }
-        switch (solveWith) {
-            case 1:
-                solver = new DijkstraSolver(maze);
-            case 2:
-                solver = new AStarSolver(maze);
-            default:
-                solver = new AStarSolver(maze);
-
+        if(solveWith == 1){
+            solver = new DijkstraSolver(maze);
+        }else{
+            solver = new AStarSolver(maze);
         }
         mazeMaker.drawPath(solver.solve());
     }
