@@ -2,8 +2,9 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package pro.imagemazesolver.ui;
+package pro.imagemazesolver.logic;
 
+import pro.imagemazesolver.logic.MazeHandler;
 import pro.imagemazesolver.algorithms.DijkstraSolver;
 import pro.imagemazesolver.domain.Maze;
 import pro.imagemazesolver.algorithms.AStarSolver;
@@ -16,7 +17,7 @@ import pro.imagemazesolver.algorithms.Solver;
 public class MazeSolver {
 
     private Maze maze;
-    private MazeMaker mazeMaker;
+    private MazeHandler mazeMaker;
 
     /**
      * Metodille annetaan luettavan labyrintin nimi, talletustiedoston nimi ja 1
@@ -26,7 +27,7 @@ public class MazeSolver {
      */
     public MazeSolver(String filename, String savename, int solveWith) {
         Solver solver;
-        mazeMaker = new MazeMaker(filename, savename);
+        mazeMaker = new MazeHandler(filename, savename);
         maze = mazeMaker.imageToMaze(solveWith);
         if (maze == null) {
             System.out.println("No solutions found.");

@@ -1,6 +1,10 @@
-package pro.imagemazesolver.ui;
+package pro.imagemazesolver.logic;
 
+
+
+import pro.imagemazesolver.logic.MazeSolver;
 import java.util.Scanner;
+import pro.imagemazesolver.logic.MazeSolver;
 
 public class App {
 
@@ -18,7 +22,6 @@ public class App {
         System.out.print("Haluatko että käytetään: 1. Dijkstraa, 2. A* (syötä 1 tai 2): ");
         int solveWith = Integer.parseInt(sc.nextLine());
         MazeSolver solver = new MazeSolver(filename,savename,solveWith);
-//        MazeSolver solver = new MazeSolver("maze.gif","final2.png", 1);  // nopeustesteihin
         
 
 

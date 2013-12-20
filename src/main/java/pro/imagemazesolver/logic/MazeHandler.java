@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package pro.imagemazesolver.ui;
+package pro.imagemazesolver.logic;
 
 import pro.imagemazesolver.domain.Node;
 import pro.imagemazesolver.domain.Maze;
@@ -19,7 +19,7 @@ import pro.imagemazesolver.datastructures.NodeStack;
  *
  * @author lalli
  */
-class MazeMaker {
+class MazeHandler {
 
     private BufferedImage buffImage;
     boolean errorThrown;
@@ -35,7 +35,7 @@ class MazeMaker {
      * @params savename tiedosto johon tulos tallennetaan
      *
      */
-    public MazeMaker(String imagepath, String savename) {
+    public MazeHandler(String imagepath, String savename) {
         this.savename = savename;
         try {
             File image = new File(imagepath);
@@ -44,10 +44,8 @@ class MazeMaker {
             this.mazeWidth = buffImage.getWidth();
         } catch (IOException ex) {
             errorThrown = true;
-            Logger.getLogger(MazeMaker.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(MazeHandler.class.getName()).log(Level.SEVERE, null, ex);
         }
-
-
     }
 
     /**
@@ -157,15 +155,10 @@ class MazeMaker {
             File outputfile = new File(savename);
             ImageIO.write(buffImage, "png", outputfile);
         } catch (IOException ex) {
-            Logger.getLogger(MazeMaker.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(MazeHandler.class.getName()).log(Level.SEVERE, null, ex);
         }
 
 
     }
-    /**
-     * Metodi palauttaa algoritmiin tarvittavan alustusarvon nodeille.
-     *
-     * @param algorithm Käyttäjän valitsema algoritmi
-     * @return arvo jolla nodet tullaan alustamaan
-     */
+   
 }

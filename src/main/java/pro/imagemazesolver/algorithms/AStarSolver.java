@@ -80,7 +80,7 @@ public class AStarSolver implements Solver {
      * Metodi tutkii pääseekö annetun noden kautta sen naapureihin nopeammin kun
      * aiemmin. Mikäli pääsee, päivitetään nodea ja lisätään se heappiin.
      * Paremmuus lasketaan tutkimalla etäisyys maaliin + reitin paino alkaen
-     * alusta
+     * alusta. CountDist laskee onko siirto sivuttainen.
      *
      * @param node Node jonka naapureita tutkitaan
      * @param heap heap johon lisätään läpikäyty parempi naapuri
@@ -90,7 +90,9 @@ public class AStarSolver implements Solver {
         for (int i = 0; i < naapurit.size(); i++) {
             Node naapuri = naapurit.get(i);
             if (!naapuri.isVisited() && !naapuri.isWall()) {
-                int distanceFromNodeToNode = node.getDistanceToPrevNode() + 1;
+                int countDist = (node.getX() != naapuri.getX() && node.getY() != naapuri.getY()) ? 2 : 1;
+
+                int distanceFromNodeToNode = node.getDistanceToPrevNode() + countDist;
                 float distanceFromNodeToEnd = getDistanceFromNodeToNode(naapurit.get(i), maze.getEndNode());
                 float weight = distanceFromNodeToEnd + distanceFromNodeToNode;
                 if (naapuri.getWeight() > weight) {

@@ -30,7 +30,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>pro.imagemazesolver.ui.App</mainClass>
+                            <mainClass>pro.imagemazesolver.logic.App</mainClass>
                         </manifest>
                     </archive>
                     <descriptorRefs>
