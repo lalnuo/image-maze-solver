@@ -59,12 +59,11 @@ class MazeMaker {
      * aloituspisteen ja maalipisteen.
      */
     public Maze imageToMaze(int algorithm) {
-        int initializeValue = getInitializeValue(algorithm);
         Maze maze = new Maze();
         Node[][] mazeArray = new Node[mazeHeight][mazeWidth];
         for (int i = 0; i < mazeHeight; i++) {
             for (int j = 0; j < mazeWidth; j++) {
-                pixelToNode(i, j, maze, mazeArray, initializeValue);
+                pixelToNode(i, j, maze, mazeArray);
             }
         }
         if (maze.getStartNode() == null || maze.getEndNode() == null) {
@@ -86,7 +85,7 @@ class MazeMaker {
      * @param mazeArray mazeen talletettava mazeArray
      * @param initializeValue arvo jolla noden paino alustetaan
      */
-    protected void pixelToNode(int y, int x, Maze maze, Node[][] mazeArray, int initializeValue) {
+    protected void pixelToNode(int y, int x, Maze maze, Node[][] mazeArray) {
         int color;
         color = buffImage.getRGB(x, y);
         Node node = new Node(y, x, new Color(color));
@@ -97,7 +96,7 @@ class MazeMaker {
         } else if (node.getColor().getRGB() < -100000) {
             node.setWall(true);
         }
-        node.setWeight(initializeValue);
+        node.setWeight(Integer.MAX_VALUE);
         mazeArray[y][x] = node;
     }
 
@@ -111,9 +110,10 @@ class MazeMaker {
         for (int i = 0; i < mazeArray.length; i++) {
             for (int j = 0; j < mazeArray[0].length; j++) {
                 Node node = mazeArray[i][j];
+
                 for (int k = -1; k < 2; k++) {
                     for (int l = -1; l < 2; l++) {
-                        if (!overflow(node.getX() + l, node.getY() + k) && !(i == 0 && j == 0)) {
+                        if (!overflow(node.getX() + l, node.getY() + k) && !(k == 0 && j == 0)) {
                             node.addNaapuri(mazeArray[node.getY() + k][node.getX() + l]);
                         }
                     }
@@ -162,20 +162,10 @@ class MazeMaker {
 
 
     }
-
     /**
      * Metodi palauttaa algoritmiin tarvittavan alustusarvon nodeille.
      *
      * @param algorithm Käyttäjän valitsema algoritmi
      * @return arvo jolla nodet tullaan alustamaan
      */
-    protected int getInitializeValue(int algorithm) {
-        int initializeValue;
-        if (algorithm == 1) {
-            initializeValue = 0;
-        } else {
-            initializeValue = Integer.MAX_VALUE;
-        }
-        return initializeValue;
-    }
 }

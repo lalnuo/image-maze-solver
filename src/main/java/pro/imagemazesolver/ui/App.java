@@ -17,8 +17,8 @@ public class App {
         String savename = sc.nextLine();
         System.out.print("Haluatko että käytetään: 1. Dijkstraa, 2. A* (syötä 1 tai 2): ");
         int solveWith = Integer.parseInt(sc.nextLine());
-        MazeSolver solver = new MazeSolver(filename,savename, 2);
-//        MazeSolver solver = new MazeSolver("braid.gif","final.png", 2);  // for speed testing
+        MazeSolver solver = new MazeSolver(filename,savename,solveWith);
+//        MazeSolver solver = new MazeSolver("maze.gif","final2.png", 1);  // nopeustesteihin
         
 
 

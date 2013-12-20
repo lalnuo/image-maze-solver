@@ -14,7 +14,7 @@ import pro.imagemazesolver.datastructures.NodeStack;
  *
  * @author lalli
  */
-public class DijkstraSolver implements Solver{
+public class DijkstraSolver implements Solver {
 
     private Maze maze;
     private boolean foundSolution = false;
@@ -37,6 +37,7 @@ public class DijkstraSolver implements Solver{
      */
     public NodeStack solve() {
         Node start = maze.getStartNode();
+        start.setWeight(0);
         Heap heap = new Heap();
         heap.add(start);
 
@@ -62,17 +63,20 @@ public class DijkstraSolver implements Solver{
 
     /**
      * Relax merkkaa uuden lyhimmän reitin kyseiseen node1 mikäli siihen pääsee
-     * nopeammin kun aiemmin löydetty eikä node1 ole seinää.
+     * nopeammin kun aiemmin löydetty eikä node1 ole seinää. CountWeight laskee
+     * että onko siirtymä sivuttainen, sivuttaissiirtymät on painoltaan 2.
      *
      * @param node1 Maalinode
      * @param node Lähtönode
      * @param heap Heap johon läpikäymättömät nodet kasataan
      */
-    protected void relax(Node node1, Node node, Heap heap) {
-        if (!node1.isVisited() && !node.isWall() && node1.getWeight() < node.getWeight() + 1) {
-            node1.setPath(node);
-            node1.setWeight(1 + node.getWeight());
-            heap.add(node1);
+    protected void relax(Node naapuri, Node node, Heap heap) {
+        int countWeight = (node.getX() != naapuri.getX() && node.getY() != naapuri.getY()) ? 2 : 1;
+
+        if (!naapuri.isVisited() && !naapuri.isWall() && naapuri.getWeight() > node.getWeight() + countWeight) {
+            naapuri.setPath(node);
+            naapuri.setWeight(countWeight + node.getWeight());
+            heap.add(naapuri);
         }
     }
 
@@ -90,7 +94,9 @@ public class DijkstraSolver implements Solver{
             path.add(pathNode);
             pathNode = pathNode.getPath();
         }
+
         return path;
+
     }
 
     /**

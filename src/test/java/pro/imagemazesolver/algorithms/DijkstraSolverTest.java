@@ -53,7 +53,7 @@ public class DijkstraSolverTest {
         Node node1 = new Node(0, 0, Color.blue);
         node1.setWeight(10);
         solver.relax(node1, node, heap);
-        assertEquals(node1.getPath(), null);
+        assertEquals(node1.getPath(),  node);
     }
 
     public void testRelaxWorks2() {
@@ -65,7 +65,7 @@ public class DijkstraSolverTest {
         Node node1 = new Node(0, 0, Color.blue);
         node1.setWeight(5);
         solver.relax(node1, node, heap);
-        assertEquals(node1.getPath(), node);
+        assertEquals(node1.getPath(), null);
     }
 
     public void testSolverReturnsEmptyStackIfNoWayWasFound() {
